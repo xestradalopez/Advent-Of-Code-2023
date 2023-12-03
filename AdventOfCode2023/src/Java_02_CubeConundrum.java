@@ -1,7 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-public class AoC_02 
+public class Java_02_CubeConundrum 
 {
 	public static void main(String[] args) throws FileNotFoundException
 	{
@@ -10,9 +10,9 @@ public class AoC_02
 		int partOne = 0;
 		int partTwo = 0;
 		
-		for(int i = 0; i<100; i++)
+		for(int i = 0; i < 100; i++)
 		{
-			String currentLine = input.nextLine().substring(7);
+			String currentLine = input.nextLine().substring(7) + ";";
 			partOne += isPossible(currentLine, i+1, false);
 			partTwo += isPossible(currentLine, i+1, true);
 		}
@@ -53,10 +53,7 @@ public class AoC_02
 			if(currentOffset >= s.length())
 				break;
 
-			if(s.substring(currentOffset).indexOf(";") != -1)
-				currentSet = s.substring(currentOffset,s.substring(currentOffset).indexOf(";") + currentOffset);
-			else
-				currentSet = s.substring(currentOffset);
+			currentSet = s.substring(currentOffset,s.substring(currentOffset).indexOf(";") + currentOffset);
 		}
 		
 		if(!isPartTwo)

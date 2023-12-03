@@ -1,7 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-public class AoC_01
+public class Java_01_Trebuchet
 {
 	public static void main(String[] args) throws FileNotFoundException
 	{
