@@ -50,7 +50,7 @@ public class Java_01_Trebuchet
 	{
 		String[] writtenNumbers = {"one","two","thr","fou","fiv","six","sev","eig","nin"};
 		
-		if(currentLineSubstring.charAt(0) >= 49 && currentLineSubstring.charAt(0) <= 57)
+		if(Character.isDigit(currentLineSubstring.charAt(0)))
 			return currentLineSubstring.charAt(0);
 			
 		if(isPartTwo)
