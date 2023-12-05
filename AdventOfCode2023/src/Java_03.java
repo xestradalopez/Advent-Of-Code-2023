@@ -7,6 +7,7 @@ public class Java_03
 {
 	public static void main(String[] args) throws FileNotFoundException
 	{
+		/*
 		Scanner input = new Scanner(new File("Input03.txt"));
 		String BlankLine = ".............................................................................................................................";
 		
@@ -33,12 +34,13 @@ public class Java_03
 
 		}
 		
-		//System.out.println("Part One: " + partOne);
-		//System.out.println("Part Two: " + partTwo);
+		System.out.println("Part One: " + partOne);
+		System.out.println("Part Two: " + partTwo);
+		*/
 	}
-	
 	static int[] partNumberSum(String[] s)
 	{
+		/*
 		int currentPower = 0;
 		int index = 0;
 		int currentNumber = 0;
@@ -63,11 +65,9 @@ public class Java_03
 				}
 			}
 		}
-		return numbers;
-		
+	*/
+		return new int[] {-1};
 	}
-	
-	
-
-
 }
+	
+	
