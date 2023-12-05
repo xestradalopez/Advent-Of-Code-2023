@@ -3,12 +3,12 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
-public class Java_03 
+public class Java_03_GearRatios 
 {
 	public static void main(String[] args) throws FileNotFoundException
 	{
 		/*
-		Scanner input = new Scanner(new File("Input03.txt"));
+		Scanner input = new Scanner(new File("input\\03.txt"));
 		String BlankLine = ".............................................................................................................................";
 		
 		

@@ -5,7 +5,9 @@ public class Java_01_Trebuchet
 {
 	public static void main(String[] args) throws FileNotFoundException
 	{
-		Scanner input = new Scanner(new File("Input01.txt"));
+		long start = System.nanoTime();
+		
+		Scanner input = new Scanner(new File("input\\01.txt"));
 
 		int partOne = 0;
 		int partTwo = 0;
@@ -19,6 +21,9 @@ public class Java_01_Trebuchet
 		
 		System.out.println("Part One: " + partOne);
 		System.out.println("Part Two: " + partTwo);
+		
+		Long duration = (System.nanoTime() - start) / 1000000;
+		System.out.println(duration + "ms");
 	}
 	
 	static int parseString(String currentLine, boolean isPartTwo)
