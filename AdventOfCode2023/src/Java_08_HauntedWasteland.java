@@ -27,19 +27,21 @@ public class Java_08_HauntedWasteland {
 			maps[i][2] = currentLine.substring(12,15); 
 		}
 		
-		System.out.println(looper(maps, values));
+		//System.out.println(looper(maps, values));
+		looper2(maps, values);
+
 	}
 	
-	static int looper(String[][] a, int[] b)
+	static int looper(String[][] a, int[] b, int j)
 	{
-		int index = findIndex(a, "AAA");
+		int index = j;
 		int count = 0;
 		while(true)
 		{
 			for(int i = 0; i < b.length; i++)
 			{
 				count++;
-				if(a[findIndex(a, a[index][b[i]])][0].equals("ZZZ"))
+				if(a[findIndex(a, a[index][b[i]])][0].charAt(2) == 'Z')
 					return count;
 				else
 					index = findIndex(a, a[index][b[i]]);
@@ -47,10 +49,40 @@ public class Java_08_HauntedWasteland {
 		}
 	}
 	
+	static int looper2(String[][] a, int[] b)
+	{
+		int index[] = new int[6];
+		int count1 = 0;
+		for(int i = 0; i < 798; i++)
+		{
+			if(a[i][0].charAt(2) == 'A')
+			{
+				index[count1] = i;
+				count1++;
+			}
+				
+		}
+		System.out.println(looper(a, b, index[0]));
+		System.out.println(looper(a, b, index[1]));
+		System.out.println(looper(a, b, index[2]));
+		System.out.println(looper(a, b, index[3]));
+		System.out.println(looper(a, b, index[4]));
+		System.out.println(looper(a, b, index[5]));
+		return -1;
+	}
+	
 	static int findIndex(String[][] a, String b)
 	{
 		for(int i = 0; i < a.length; i++)
 			if(a[i][0].equals(b))
+				return i;
+		return -1;
+	}
+	
+	static int findIndex2(String[][] a, String b)
+	{
+		for(int i = 0; i < a.length; i++)
+			if(a[i][0].charAt(2) == 'a')
 				return i;
 		return -1;
 	}
