@@ -3,7 +3,6 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 public class Java_07_CamelCards 
 {
-
 	public static void main(String[] args) throws FileNotFoundException
 	{
 		Scanner input = new Scanner(new File("input\\07.txt"));
@@ -19,13 +18,9 @@ public class Java_07_CamelCards
 		sort(ranks);
 		
 		for(int i = 0; i < 1000; i++)
-		{
-			System.out.println((i+1) + ": " + ranks[i][0] + " " + ranks[i][1] + " " + ranks[i][2] + ": " + Integer.parseInt(ranks[i][2]) * (i+1));
 			partOne += Integer.parseInt(ranks[i][2]) * (i+1);
-		}
 		
 		System.out.println(partOne);
-
 	}
 	
 	static String[] rank(Scanner a)
@@ -36,35 +31,23 @@ public class Java_07_CamelCards
 		int[] stuff = new int[13];
 		
 		for(int i = 0; i < 5; i++)	
-			stuff[getValue(currentLine.charAt(i))-2]++;
+			stuff[getValue(currentLine.charAt(i))-1]++;
 		
 		int greatest = 0;
 		int secondgreatest = 0;
-		for(int i = 0; i < 13; i++)
+		for(int i = 1; i < 13; i++)
 			if(stuff[i] > greatest)
+			{
+				secondgreatest = greatest;
 				greatest = stuff[i];
+			}
 			else if(stuff[i] >= secondgreatest && stuff[i] <= greatest)
 				secondgreatest = stuff[i];
 		
-		switch(greatest)
-		{
-		case 5:
-			return new String[] {6 + "",currentLine, bet};
-		case 4:
-			return new String[] {5 + "",currentLine, bet};
-		case 3:
-			if(secondgreatest == 2)
-				return new String[] {4 + "",currentLine, bet};
-			else
-				return new String[] {3 + "",currentLine, bet};
-		case 2:
-			if(secondgreatest == 2)
-				return new String[] {2 + "",currentLine, bet};
-			else
-				return new String[] {1 + "",currentLine, bet};
-		default:
-			return new String[] {0 + "",currentLine, bet};
-		}
+		double extra = secondgreatest == 2? .5: 0;
+		double result = greatest + stuff[0] + extra;
+
+		return new String[] {result + "", currentLine, bet};
 	}
 	
 	static void sort(String[][] a)
@@ -72,7 +55,7 @@ public class Java_07_CamelCards
 		String[] temp = new String[3];
 		
 		for(int i = 1; i < a.length; i++)
-			for(int j = i;j > 0 && isBigger(a[j-1][0] + " " + a[j-1][1], a[j][0] + " " + a[j][1]); j--)
+			for(int j = i; j > 0 && isBigger(a[j-1][0] + " " + a[j-1][1], a[j][0] + " " + a[j][1]); j--)
 			{
 				temp = a[j];
 				a[j] = a[j-1];
@@ -82,13 +65,15 @@ public class Java_07_CamelCards
 	
 	static boolean isBigger(String a, String b)
 	{
-		if(a.charAt(0) > b.charAt(0))
+		double rankA = Double.parseDouble(a.substring(0,3));
+		double rankB = Double.parseDouble(b.substring(0,3));
+		if(rankA > rankB)
 			return true;
-		else if(a.charAt(0) == b.charAt(0))
+		else if(rankA == rankB)
 			for(int i = 0; i < 5; i++)
-				if(getValue(a.charAt(i + 2)) > getValue(b.charAt(i + 2)))
+				if(getValue(a.charAt(i + 4)) > getValue(b.charAt(i + 4)))
 					return true;
-				else if(getValue(a.charAt(i + 2)) < getValue(b.charAt(i + 2)))
+				else if(getValue(a.charAt(i + 4)) < getValue(b.charAt(i + 4)))
 					return false;
 		return false;
 	}
@@ -100,16 +85,16 @@ public class Java_07_CamelCards
 		
 		switch(a)
 		{
+			case 'J':
+				return 1;
 			case 'T':
 				return 10;
-			case 'J':
-				return 11;
 			case 'Q':
-				return 12;
+				return 11;
 			case 'K':
-				return 13;
+				return 12;
 			case 'A':
-				return 14;
+				return 13;
 		}
 		
 		return -1;
