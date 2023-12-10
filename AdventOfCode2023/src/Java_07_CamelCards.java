@@ -67,6 +67,7 @@ public class Java_07_CamelCards
 	{
 		double rankA = Double.parseDouble(a.substring(0,3));
 		double rankB = Double.parseDouble(b.substring(0,3));
+		
 		if(rankA > rankB)
 			return true;
 		else if(rankA == rankB)
