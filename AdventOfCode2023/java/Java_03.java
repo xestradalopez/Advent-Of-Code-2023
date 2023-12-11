@@ -22,7 +22,7 @@ public class Java_03
 		int count = 0;
 		for(int i = 1; i < stuff.length - 1; i++)
 		{
-			for (int j = 1; j < stuff[i].length - ; j++)
+			for (int j = 1; j < stuff[i].length - 1; j++)
 			{
 
 				if("0123456789".contains(stuff[i][j]))
