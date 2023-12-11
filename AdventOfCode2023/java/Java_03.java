@@ -22,7 +22,7 @@ public class Java_03
 		int count = 0;
 		for(int i = 1; i < stuff.length - 1; i++)
 		{
-			for (int j = 1; j < stuff[i].length - 1; j++)
+			for (int j = 1; j < stuff[i].length - ; j++)
 			{
 
 				if("0123456789".contains(stuff[i][j]))
@@ -32,17 +32,20 @@ public class Java_03
 					String[] radius = new String[] {stuff[i-1][j-1],stuff[i-1][j],stuff[i-1][j+1],stuff[i][j-1],stuff[i][j+1],stuff[i+1][j-1],stuff[i+1][j],stuff[i+1][j+1]};
 					temp+=stuff[i][j];
 					for(String a: radius)
-					{
 						if(!"0123456789.".contains(a))
+						{
 							thing = true;
-						break;
-					}
+							break;
+						}
+
+
+
 					if(thing)
 						count+=Integer.parseInt(temp);
 				}
 			}
 		}
-		System.out.println(temp);
+		System.out.println(count);
 		double duration = (System.nanoTime() - start) / 1000000;
 		System.out.println(duration + "ms");
 	}
