@@ -5,6 +5,7 @@ public class Java_01_Trebuchet
 {
 	public static void main(String[] args) throws FileNotFoundException
 	{
+		System.out.println(-4 % 4);
 		long start = System.nanoTime();
 		
 		Scanner input = new Scanner(new File("input\\01.txt"));

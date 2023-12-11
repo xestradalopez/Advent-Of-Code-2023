@@ -36,6 +36,6 @@ public class Java_09_MirageMaintenance
 		for(int i = 0; i < b.length; i++)
 			b[i] = a[i+1] - a[i];
 		
-		return Arrays.stream(a).allMatch(n -> n == 0) ? 0: isPartTwo ? a[0] - findPattern(b, isPartTwo) : a[a.length-1] + findPattern(b, isPartTwo);
+		return Arrays.stream(a).allMatch(n -> n == 0) ? 0: isPartTwo ? a[0] - findPattern(b, true) : a[a.length-1] + findPattern(b, false);
 	}
 }
