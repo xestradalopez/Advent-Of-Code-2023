@@ -2,13 +2,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
-public class Java_09_MirageMaintenance 
+public class Java_09
 {
 	public static void main(String[] args) throws FileNotFoundException
 	{
+		final Scanner input = new Scanner(new File("AdventOfCode2023\\input\\09.txt"));
+
 		final double start = System.nanoTime();
-		
-		final Scanner input = new Scanner(new File("input\\09.txt"));
 		
 		int partOne = 0;
 		int partTwo = 0;

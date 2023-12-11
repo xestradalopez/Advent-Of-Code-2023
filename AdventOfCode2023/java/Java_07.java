@@ -1,11 +1,11 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-public class Java_07_CamelCards 
+public class Java_07
 {
 	public static void main(String[] args) throws FileNotFoundException
 	{
-		Scanner input = new Scanner(new File("input\\07.txt"));
+		Scanner input = new Scanner(new File("AdventOfCode2023\\input\\07.txt"));
 		
 		String[][] ranks = new String[1000][3];
 		

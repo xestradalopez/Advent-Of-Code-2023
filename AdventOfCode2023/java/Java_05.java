@@ -1,16 +1,15 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
-public class Java_05_IfYouGiveASeedAFertilizer 
+
+public class Java_05
 {
 
 	public static void main(String[] args) throws FileNotFoundException
 	{
-		long start = System.nanoTime();
+		double start = System.nanoTime();
 		
-		Scanner input = new Scanner(new File("input\\05.txt"));
+		Scanner input = new Scanner(new File("AdventOfCode2023\\input\\05.txt"));
 		
 		long[][] seeds = new long[1][20];
 		long[][] soil = new long[20][3];
@@ -44,17 +43,16 @@ public class Java_05_IfYouGiveASeedAFertilizer
 		for(int i = 0; i < seeds[0].length; i++)
 			if(seeds[0][i] < currentSmallest)
 				currentSmallest = seeds[0][i];
-		System.out.println(currentSmallest);
 		
 		
-		int partOne = 0;
+		long partOne = currentSmallest;
 		int partTwo = 0;
 		
-		//System.out.println("Part One: " + partOne);
-		//System.out.println("Part Two: " + partTwo);
+		System.out.println("Part One: " + partOne);
+		System.out.println("Part Two: " + partTwo);
 		
-		Long duration = (System.nanoTime() - start) / 1000000;
-		//System.out.println(duration + "ms");
+		double duration = (System.nanoTime() - start) / 1000000;
+		System.out.println(duration + "ms");
 		
 		
 
@@ -92,11 +90,11 @@ public class Java_05_IfYouGiveASeedAFertilizer
 	static void convert(long[][] a, long[][] b)
 	{
 		for(int i = 0; i < a[0].length; i++)
-			Nyaa: for(int j = 0; j < b.length; j++)
+			for(int j = 0; j < b.length; j++)
 				if(a[0][i] >= b[j][1] && a[0][i] <= b[j][1] + b[j][2])
 				{
 					a[0][i] = a[0][i] - b[j][1] + b[j][0];
-					break Nyaa;
+					break;
 				}
 	}
 }

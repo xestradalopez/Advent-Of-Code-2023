@@ -3,12 +3,12 @@ import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Java_10_PipeMaze {
+public class Java_10 {
 
 	public static void main(String[] args) throws FileNotFoundException
 	{
 		final double start = System.nanoTime();
-		final Scanner input = new Scanner(new File("input\\10.txt"));
+		final Scanner input = new Scanner(new File("AdventOfCode2023\\input\\10.txt"));
 		//82, 74
 		char[][]  a = new char[140][140];
 		int[][] qwerty = new int[13546][2];
@@ -144,15 +144,21 @@ public class Java_10_PipeMaze {
 		qwerty[count2][1] = x;
 		
 		System.out.println(count/2);
-		int[] huh = new int[] {85,74};
-		
+		int count4 = getCount4(a, qwerty);
+		System.out.println("count 4: " + count4);
+		final double runtime = (System.nanoTime() - start) / 1000000;
+		System.out.println("Runtime: " + runtime + "ms");
+	}
+
+	private static int getCount4(char[][] a, int[][] qwerty)
+	{
 		int count3 = 0;
 		int count4 = 0;
-		
+
 		for(int i = 0; i < 140; i++)
 		{
 			for(int j = 0; j < 140; j++)
-			{			
+			{
 				int[] kys = new int[] {i,j};
 				if(a[i][j] == '.' || !isValid(qwerty, kys))
 					for(int k = i+1; k < 140; k++)
@@ -180,25 +186,22 @@ public class Java_10_PipeMaze {
 							}
 						}
 					}
-				if(count3 % 4 == 2 || count3 % 4 == -2) 
+				if(count3 % 4 == 2 || count3 % 4 == -2)
 				{
 					count4++;
 				}
-				
+
 				count3 = 0;
 			}
 		}
-		System.out.println("count 4: " + count4);
-		final double runtime = (System.nanoTime() - start) / 1000000;
-		System.out.println("Runtime: " + runtime + "ms");
+		return count4;
 	}
+
 	static boolean isValid(int[][] a, int[] b)
 	{
 		for(int i = 0; i < a.length; i++)
-		{
 			if(Arrays.equals(b, a[i]))
 				return true;
-		}
 		return false;
 	}
 }

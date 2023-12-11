@@ -1,11 +1,11 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-public class Java_08_HauntedWasteland {
+public class Java_08 {
 
 	public static void main(String[] args) throws FileNotFoundException
 	{
-		Scanner input = new Scanner(new File("input\\08.txt"));
+		Scanner input = new Scanner(new File("AdventOfCode2023\\input\\08.txt"));
 		
 		String currentLine = input.nextLine();
 		int[] values = new int[271];
