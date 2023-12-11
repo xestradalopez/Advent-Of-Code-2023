@@ -1,69 +1,50 @@
 import java.io.FileNotFoundException;
-
+import java.util.Arrays;
+import java.util.Scanner;
+import java.io.File;
 public class Java_03
 {
 	public static void main(String[] args) throws FileNotFoundException
 	{
-		/*
-		Scanner input = new Scanner(new File("AdventOfCode2023\\input\\03.txt"));
-		String BlankLine = ".............................................................................................................................";
-		
-		
-		String[] inputArray = new String[140];
-		
-		for(int i = 0; i < 140; i++)
-		{
-			inputArray[i] = input.nextLine();
-		}
-		
-		int[] numbers = partNumberSum(inputArray);
-		
-		for(int i = 0; i < 1216; i++)
-		{
-			System.out.println(numbers[i]);
-		}
-		
-		int partOne = 0;
-		int partTwo = 0;
+		double start = System.nanoTime();
 
-		for(int i = 0; i < 1; i++)
-		{
+		Scanner input = new Scanner(new File("AdventOfCode2023/input/03.txt"));
 
-		}
-		
-		System.out.println("Part One: " + partOne);
-		System.out.println("Part Two: " + partTwo);
-		*/
-	}
-	static int[] partNumberSum(String[] s)
-	{
-		/*
-		int currentPower = 0;
-		int index = 0;
-		int currentNumber = 0;
-		int[][][] numbers = new int[1216][3][140];
-		for(int i = 0; i < 140; i++)
+		String[][] stuff = new String[142][142];
+
+		Arrays.fill(stuff[0],".");
+		for(int i = 1; input.hasNextLine(); i++)
 		{
-			for(int j = 139; j >=0; j--)
+			stuff[i] = Arrays.stream(("."+input.nextLine()+".").split("")).toArray(size -> new String[size]);
+		}
+		Arrays.fill(stuff[141],".");
+		String temp = "";
+		int count = 0;
+		for(int i = 1; i < stuff.length - 1; i++)
+		{
+			for (int j = 1; j < stuff[i].length - 1; j++)
 			{
-				if(Character.isDigit(s[i].charAt(j)))
+
+				if("0123456789".contains(stuff[i][j]))
 				{
-					currentNumber += Integer.parseInt(s[i].substring(j,j+1)) * Math.pow(10, currentPower);
-					currentPower++;
-				}
-				else if(currentPower > 0)
-				{
-					numbers[index][0][i] = currentNumber;
-					numbers[index][1][i] = j;
-					numbers[index][2][i] = currentPower;
-					currentNumber = 0;
-					currentPower = 0;
-					index++;
+					boolean thing = false;
+					temp = "";
+					String[] radius = new String[] {stuff[i-1][j-1],stuff[i-1][j],stuff[i-1][j+1],stuff[i][j-1],stuff[i][j+1],stuff[i+1][j-1],stuff[i+1][j],stuff[i+1][j+1]};
+					temp+=stuff[i][j];
+					for(String a: radius)
+					{
+						if(!"0123456789.".contains(a))
+							thing = true;
+						break;
+					}
+					if(thing)
+						count+=Integer.parseInt(temp);
 				}
 			}
 		}
-	*/
-		return new int[] {-1};
+		System.out.println(temp);
+		double duration = (System.nanoTime() - start) / 1000000;
+		System.out.println(duration + "ms");
 	}
 }
 	

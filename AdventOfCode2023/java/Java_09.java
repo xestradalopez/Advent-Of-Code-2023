@@ -6,7 +6,7 @@ public class Java_09
 {
 	public static void main(String[] args) throws FileNotFoundException
 	{
-		final Scanner input = new Scanner(new File("AdventOfCode2023\\input\\09.txt"));
+		final Scanner input = new Scanner(new File("AdventOfCode2023/input/09.txt"));
 
 		final double start = System.nanoTime();
 		
