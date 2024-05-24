@@ -5,7 +5,7 @@ public class Java_08 {
 
 	public static void main(String[] args) throws FileNotFoundException
 	{
-		Scanner input = new Scanner(new File("AdventOfCode2023\\input\\08.txt"));
+		Scanner input = new Scanner(new File("2023\\input\\08.txt"));
 		
 		String currentLine = input.nextLine();
 		int[] values = new int[271];

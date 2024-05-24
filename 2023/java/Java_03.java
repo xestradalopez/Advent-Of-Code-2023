@@ -8,7 +8,7 @@ public class Java_03
 	{
 		double start = System.nanoTime();
 
-		Scanner input = new Scanner(new File("AdventOfCode2023/input/03.txt"));
+		Scanner input = new Scanner(new File("2023/input/03.txt"));
 		char[][] parsedInput = new char[142][142];
 
 		parseInput(parsedInput, input);

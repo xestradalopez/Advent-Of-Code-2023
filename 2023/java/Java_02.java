@@ -7,7 +7,7 @@ public class Java_02
 	{
 		long start = System.nanoTime();
 		
-		Scanner input = new Scanner(new File("AdventOfCode2023\\input\\02.txt"));
+		Scanner input = new Scanner(new File("Code2023\\input\\02.txt"));
 		
 		int partOne = 0;
 		int partTwo = 0;

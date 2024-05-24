@@ -9,7 +9,7 @@ public class Java_05
 	{
 		double start = System.nanoTime();
 		
-		Scanner input = new Scanner(new File("AdventOfCode2023\\input\\05.txt"));
+		Scanner input = new Scanner(new File("2023\\input\\05.txt"));
 		
 		long[][] seeds = new long[1][20];
 		long[][] soil = new long[20][3];
