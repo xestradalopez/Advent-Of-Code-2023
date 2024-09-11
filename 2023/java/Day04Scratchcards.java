@@ -2,7 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
-public class Java_04 {
+public class Day04Scratchcards {
 
 	public static void main(String[] args) throws FileNotFoundException
 	{

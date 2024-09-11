@@ -2,7 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Scanner;
-public class Java_19
+public class Day19Aplenty
 {
     public static void main(String[] args) throws FileNotFoundException
     {
@@ -13,7 +13,9 @@ public class Java_19
         HashMap<Integer, String[]> workflows = workflows(input);
         int[][] parts = parts(input);
 
-        System.out.println(partOne(workflows,parts)); // Part One
+        int partOne = partOne(workflows,parts);
+
+        System.out.println("Part One: " + partOne);
 
         double duration = (System.nanoTime() - start) / 1000000;
         System.out.println(duration + "ms");

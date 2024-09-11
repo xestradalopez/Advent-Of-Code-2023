@@ -2,7 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Scanner;
-public class Java_15
+public class Day15LensLibrary
 {
     public static void main(String[] args) throws FileNotFoundException
     {

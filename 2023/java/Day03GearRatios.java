@@ -1,14 +1,14 @@
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.io.File;
-public class Java_03
+public class Day03GearRatios
 {
 	public static void main(String[] args) throws FileNotFoundException
 	{
+		Scanner input = new Scanner(new File("2023/input/03.txt"));
+
 		double start = System.nanoTime();
 
-		Scanner input = new Scanner(new File("2023/input/03.txt"));
 		char[][] parsedInput = new char[142][142];
 
 		parseInput(parsedInput, input);

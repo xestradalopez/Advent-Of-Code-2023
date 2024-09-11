@@ -1,7 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-public class Java_02
+public class Day02CubeConundrum
 {
 	public static void main(String[] args) throws FileNotFoundException
 	{

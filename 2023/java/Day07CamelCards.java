@@ -1,7 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-public class Java_07
+public class Day07CamelCards
 {
 	public static void main(String[] args) throws FileNotFoundException
 	{
