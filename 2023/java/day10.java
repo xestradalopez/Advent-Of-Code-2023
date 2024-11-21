@@ -3,11 +3,12 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Day10PipeMaze
+public class day10
 {
 	public static void main(String[] args) throws FileNotFoundException
 	{
 		final Scanner input = new Scanner(new File("2023\\input\\10.txt"));
+
 
 		final double start = System.nanoTime();
 

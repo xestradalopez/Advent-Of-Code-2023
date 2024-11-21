@@ -1,11 +1,11 @@
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.File;
-public class Day03GearRatios
+public class day03
 {
 	public static void main(String[] args) throws FileNotFoundException
 	{
-		Scanner input = new Scanner(new File("2023/input/03.txt"));
+		Scanner input = new Scanner(new File("2023/example/03.txt"));
 
 		double start = System.nanoTime();
 

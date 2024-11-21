@@ -1,7 +1,7 @@
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
-public class Day12HotSprings
+public class day12
 {
     public static void main(String[] args) throws FileNotFoundException
     {

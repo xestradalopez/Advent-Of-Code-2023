@@ -2,7 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class Day05IfYouGiveASeedAFertilizer
+public class day05
 {
 
 	public static void main(String[] args) throws FileNotFoundException

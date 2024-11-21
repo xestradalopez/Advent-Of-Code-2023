@@ -2,7 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
-public class Day09MirageMaintenance
+public class day09
 {
 	public static void main(String[] args) throws FileNotFoundException
 	{
