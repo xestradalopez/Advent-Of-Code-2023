@@ -13,7 +13,7 @@ public class day20
     {
         double start = System.nanoTime();
 
-        Scanner input = new Scanner(new File("2023/example/20.txt"));
+        Scanner input = new Scanner(new File("2023/input/20.txt"));
 
         int partOne = partOne(input);
         int partTwo = 0;
@@ -34,20 +34,20 @@ public class day20
         ArrayList<Boolean> flipFlopStates = setFlipFlopStates(input);
         ArrayList<HashMap<String, Boolean>> conjunctionPulses = setConjunctionPulses(input);
 
-        for(int i = 0; i < 1; i++) //if I set this number to 2 it should be 128, but it isn't
+        for(int i = 0; i < 1000; i++)
         {
-            System.out.println(i + ": ");
-            System.out.println("button -low-> broadcaster");
+            //System.out.println(i + ": ");
+            //System.out.println("button -low-> broadcaster");
             lowPulses++;
             instructions = findBroadcaster(input);
             while (!instructions.isEmpty()) {
                 instructions.addAll(compute(instructions.get(0), input, flipFlopStates, conjunctionPulses));
-                System.out.println(instructions.get(0)[2] + " -"+instructions.get(0)[1]+"-> " + instructions.get(0)[0]);
+                //System.out.println(instructions.get(0)[2] + " -"+instructions.get(0)[1]+"-> " + instructions.get(0)[0]);
                 instructions.remove(0);
             }
 
 
-            resetPulses(conjunctionPulses);
+            //resetPulses(conjunctionPulses);
         }
         return lowPulses * highPulses;
 
@@ -171,16 +171,12 @@ public class day20
 
         String returnSignal; // false == low, true == high
 
+        conjunctionPulses.get(index).replace(signal[2], signal[1].equals("high"));
+
         if(isAllHighPulses(conjunctionPulses.get(index)))
             returnSignal = "low";
         else
             returnSignal = "high";
-
-        conjunctionPulses.get(index).replace(signal[2], signal[1].equals("high"));
-
-        if(signal[0].equals("inv"))
-            for (String key : conjunctionPulses.get(index).keySet())
-                System.out.println(key + ": " + conjunctionPulses.get(index).get(key));
 
         for(int i = 1; i < input.get(index).size(); i++)
             result.add(new String[]{input.get(index).get(i), returnSignal, signal[0]});
