@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
+@SuppressWarnings("SequencedCollectionMethodCanBeUsed")
 public class day20
 {
-
     static int lowPulses = 0;
     static int highPulses = 0;
     public static void main(String[] args)  throws FileNotFoundException
@@ -40,14 +40,12 @@ public class day20
             //System.out.println("button -low-> broadcaster");
             lowPulses++;
             instructions = findBroadcaster(input);
-            while (!instructions.isEmpty()) {
+            while (!instructions.isEmpty())
+            {
                 instructions.addAll(compute(instructions.get(0), input, flipFlopStates, conjunctionPulses));
                 //System.out.println(instructions.get(0)[2] + " -"+instructions.get(0)[1]+"-> " + instructions.get(0)[0]);
                 instructions.remove(0);
             }
-
-
-            //resetPulses(conjunctionPulses);
         }
         return lowPulses * highPulses;
 
@@ -107,10 +105,11 @@ public class day20
 
                 HashMap<String, Boolean> inputPulses = new HashMap<>();
 
-                for(int j = 0; j < input.size(); j++) //God is dead
-                    for(int k = 1; k < input.get(j).size(); k++)
-                        if(input.get(j).get(k).equals(currentValue))
-                            inputPulses.put(input.get(j).get(0).substring(1), false);
+                //God is dead
+                for (ArrayList<String> stringArrayList : input)
+                    for (int k = 1; k < stringArrayList.size(); k++)
+                        if (stringArrayList.get(k).equals(currentValue))
+                            inputPulses.put(stringArrayList.get(0).substring(1), false);
 
                 result.add(inputPulses);
             }
@@ -126,6 +125,7 @@ public class day20
         boolean operator = true; // true == flip-flop, false == conjunction;
 
         for(int i = 0; i < input.size(); i++)
+            //noinspection SequencedCollectionMethodCanBeUsed
             if(input.get(i).get(0).substring(1).equals(signal[0]))
             {
                 index = i;
@@ -194,17 +194,6 @@ public class day20
         for (Boolean pulse : pulses.values())
             if(!pulse)
                 return false;
-
         return true;
     }
-
-    public static void resetPulses(ArrayList<HashMap<String, Boolean>> pulses)
-    {
-        for(int i = 0; i < pulses.size(); i++)
-            if(pulses.get(i) != null)
-                pulses.get(i).replaceAll((k, v) -> false);
-    }
-
-
-
 }
