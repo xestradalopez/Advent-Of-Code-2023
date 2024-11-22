@@ -9,6 +9,7 @@ public class day20
 {
     static int lowPulses = 0;
     static int highPulses = 0;
+
     public static void main(String[] args)  throws FileNotFoundException
     {
         double start = System.nanoTime();
@@ -27,28 +28,31 @@ public class day20
         double duration = (System.nanoTime() - start) / 1000000;
         System.out.println(duration + "ms");
     }
+
     public static int partOne(Scanner sc)
     {
-        ArrayList<ArrayList<String>> input = parseInput(sc);
-        ArrayList<String[]> instructions;
-        ArrayList<Boolean> flipFlopStates = setFlipFlopStates(input);
-        ArrayList<HashMap<String, Boolean>> conjunctionPulses = setConjunctionPulses(input);
+        ArrayList<ArrayList<String>> input = parseInput(sc);                                    // {{Source Module 1, Destination Module 1, ...}, ...}
+        Object[] lookupTable = createLookupTable(input);
+        ArrayList<String[]> instructions;                                                       // {[signal Destination 1, signal, Signal Source], ...}
+        // {Flip-Flop Module 1 State, ...} false = Off | true = On                          // For both of these they are at the same index as their corresponding
+        // {{input Module 1, Input Module Most Recent Signal}, ...} false = Off | true = On // module in input, all other spaces are filled with null
+
+
 
         for(int i = 0; i < 1000; i++)
         {
-            //System.out.println(i + ": ");
+            //System.out.println((i+1) + ": ");
             //System.out.println("button -low-> broadcaster");
             lowPulses++;
             instructions = findBroadcaster(input);
             while (!instructions.isEmpty())
             {
-                instructions.addAll(compute(instructions.get(0), input, flipFlopStates, conjunctionPulses));
                 //System.out.println(instructions.get(0)[2] + " -"+instructions.get(0)[1]+"-> " + instructions.get(0)[0]);
+                instructions.addAll(compute(instructions.get(0), input, lookupTable));
                 instructions.remove(0);
             }
         }
         return lowPulses * highPulses;
-
     }
 
     public static ArrayList<ArrayList<String>> parseInput(Scanner input)
@@ -81,25 +85,14 @@ public class day20
         return result;
     }
 
-    public static ArrayList<Boolean> setFlipFlopStates(ArrayList<ArrayList<String>> input)
+    public static Object[] createLookupTable(ArrayList<ArrayList<String>> input)
     {
-        ArrayList<Boolean> result = new ArrayList<>();
+        ArrayList<Object> result = new ArrayList<>();
 
         for (ArrayList<String> strings : input)
             if (strings.get(0).charAt(0) == '%')
                 result.add(false);
-            else
-                result.add(null);
-
-        return result;
-    }
-
-    public static ArrayList<HashMap<String, Boolean>> setConjunctionPulses(ArrayList<ArrayList<String>> input)
-    {
-        ArrayList<HashMap<String, Boolean>> result = new ArrayList<>();
-
-        for (ArrayList<String> strings : input)
-            if (strings.get(0).charAt(0) == '&')
+            else if(strings.get(0).charAt(0) == '&')
             {
                 String currentValue = strings.get(0).substring(1);
 
@@ -116,10 +109,10 @@ public class day20
             else
                 result.add(null);
 
-        return result;
+        return result.toArray();
     }
 
-    public static ArrayList<String[]> compute(String[] signal, ArrayList<ArrayList<String>> input, ArrayList<Boolean> flipFlopStates, ArrayList<HashMap<String, Boolean>> conjunctionPulses)
+    public static ArrayList<String[]> compute(String[] signal, ArrayList<ArrayList<String>> input, Object[] lookupTable)
     {
         int index = 0;
         boolean operator = true; // true == flip-flop, false == conjunction;
@@ -134,25 +127,25 @@ public class day20
             }
 
         if(operator)
-            return computeFlipFlop(signal, input, flipFlopStates, index);
+            return computeFlipFlop(signal, input, lookupTable, index);
         else
-            return computeConjunction(signal, input, conjunctionPulses, index);
+            return computeConjunction(signal, input, lookupTable, index);
     }
 
-    public static ArrayList<String[]> computeFlipFlop(String[] signal, ArrayList<ArrayList<String>> input, ArrayList<Boolean> flipFlopStates, int index)
+    public static ArrayList<String[]> computeFlipFlop(String[] signal, ArrayList<ArrayList<String>> input, Object[] flipFlopStates, int index)
     {
         ArrayList<String[]> result = new ArrayList<>();
 
         String returnSignal; // false == low, true == high
 
-        if(signal[1].equals("high") || flipFlopStates.get(index) == null) return result;
+        if(signal[1].equals("high") || flipFlopStates[index] == null) return result;
 
-        if(flipFlopStates.get(index))
+        if((Boolean)flipFlopStates[index])
             returnSignal = "low";
         else
             returnSignal = "high";
 
-        flipFlopStates.set(index, !flipFlopStates.get(index));
+        flipFlopStates[index] = !(Boolean)flipFlopStates[index];
 
         for(int i = 1; i < input.get(index).size(); i++)
             result.add(new String[]{input.get(index).get(i), returnSignal, signal[0]});
@@ -165,15 +158,15 @@ public class day20
         return result;
     }
 
-    public static ArrayList<String[]> computeConjunction(String[] signal, ArrayList<ArrayList<String>> input, ArrayList<HashMap<String, Boolean>> conjunctionPulses, int index)
+    public static ArrayList<String[]> computeConjunction(String[] signal, ArrayList<ArrayList<String>> input, Object[] conjunctionPulses, int index)
     {
         ArrayList<String[]> result = new ArrayList<>();
 
-        String returnSignal; // false == low, true == high
+        String returnSignal;
 
-        conjunctionPulses.get(index).replace(signal[2], signal[1].equals("high"));
+        ((HashMap<String, Boolean>)conjunctionPulses[index]).replace(signal[2], signal[1].equals("high"));
 
-        if(isAllHighPulses(conjunctionPulses.get(index)))
+        if(isAllHighPulses((HashMap<String, Boolean>)conjunctionPulses[index]))
             returnSignal = "low";
         else
             returnSignal = "high";
