@@ -1,2 +1,5 @@
 # Default ignored files
 /.idea
+/AdventOfCode.iml
+/out
+/2023/input
