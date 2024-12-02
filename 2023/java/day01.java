@@ -7,7 +7,7 @@ public class day01
 	{
 		double start = System.nanoTime();
 		
-		Scanner input = new Scanner(new File("2023/input/01.txt"));
+		Scanner input = new Scanner(new File("2023/example/01.txt"));
 
 		int partOne = 0;
 		int partTwo = 0;
