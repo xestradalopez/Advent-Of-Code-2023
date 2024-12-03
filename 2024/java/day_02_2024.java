@@ -30,7 +30,7 @@ public class day_02_2024
     {
         int result = 0;
         for(int[] report : reports)
-            if (isGradual(report) && isConsistent(report))
+            if (isGradual(report) && isMonotonic(report))
                 result++;
         return result;
     }
@@ -43,7 +43,7 @@ public class day_02_2024
             {
                 int I = i;
                 int[] dampReport = IntStream.range(0, report.length).filter(j -> j != I).map(j -> report[j]).toArray();
-                if(isGradual(dampReport) && isConsistent(dampReport))
+                if(isGradual(dampReport) && isMonotonic(dampReport))
                 {
                     result++;
                     break;
@@ -71,7 +71,7 @@ public class day_02_2024
         return true;
     }
 
-    public static boolean isConsistent(int[] report)
+    public static boolean isMonotonic(int[] report)
     {
         int monotonicity = (int)Math.signum(report[1] - report[0]);
         for(int i = 1; i < report.length - 1; i++)
