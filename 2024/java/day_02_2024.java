@@ -56,10 +56,7 @@ public class day_02_2024
     {
         ArrayList<int[]> a = new ArrayList<>();
         while(input.hasNextLine())
-        {
-            int[] report = Arrays.stream(input.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-            a.add(report);
-        }
+            a.add(Arrays.stream(input.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray());
         reports = a.toArray(new int[0][0]);
     }
 
