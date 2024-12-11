@@ -61,7 +61,7 @@ public class day_07_2024
                         currentTotal *= calibrationEquation[j];
                     else
                     {
-                        currentTotal = currentTotal * (int)Math.pow(10, Math.floor(Math.log10(calibrationEquation[j])+1)) + calibrationEquation[j];
+                        currentTotal = currentTotal * (calibrationEquation[j] + "").length() + calibrationEquation[j];
                     }
 
                 if(currentTotal == calibrationEquation[0])
