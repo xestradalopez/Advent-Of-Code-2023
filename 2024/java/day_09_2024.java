@@ -6,13 +6,13 @@ import java.util.Scanner;
 public class day_09_2024
 {
     static int[] diskMap;
-    static int[] uncompactedDiskMap;
+    static int[] disk;
 
     public static void main(String[] args) throws FileNotFoundException
     {
         double start = System.nanoTime();
 
-        Scanner input = new Scanner(new File("2024/input/09.txt"));
+        Scanner input = new Scanner(new File("2024/example/09.txt"));
         parse(input);
 
         long partOne = partOne();
@@ -28,48 +28,16 @@ public class day_09_2024
     static long partOne()
     {
         long result = 0;
-        int size = 0;
-        for(int num: diskMap)
-            size+=num;
-        uncompactedDiskMap = new int[size];
-        int count = 0;
-        int huzzah = 0;
-        for(int i = 0; i < diskMap.length; i++)
-        {
-            if(i%2 == 0)
-            {
-                for (int j = 0; j < diskMap[i]; j++)
-                    uncompactedDiskMap[huzzah + j] = count;
-                huzzah+=diskMap[i];
-                count++;
-            }
+
+        for(int i = 0, j = disk.length - 1; i <= j; i++)
+            if(disk[i] != -1)
+                result += (long) disk[i] * i;
             else
             {
-                for (int j = 0; j < diskMap[i]; j++)
-                    uncompactedDiskMap[huzzah + j] = -1;
-                huzzah+=diskMap[i];
+                result += (long) disk[j] * i;
+                do j--; while(disk[j] == -1);
             }
-        }
-        int[] thingy2 = Arrays.copyOf(uncompactedDiskMap, uncompactedDiskMap.length);
-        for(int i = 0, j = thingy2.length - 1;i < j;)
-        {
-            if(thingy2[i] == -1 && thingy2[j] != -1)
-            {
-                thingy2[i] = thingy2[j];
-                thingy2[j] = -1;
-                i++;
-                j--;
-            }
-            else
-            {
-                if(thingy2[i] != -1)
-                    i++;
-                if(thingy2[j] == -1)
-                    j--;
-            }
-        }
-        for(int i = 0; thingy2[i] != -1; i++)
-            result += (long) thingy2[i] * i;
+
         return result;
     }
 
@@ -81,31 +49,30 @@ public class day_09_2024
             for(int j = 1; j < i; j+=2)
                 if(diskMap[j] >= diskMap[i])
                 {
-                    int from = getUncompactedIndex(j); //I named these in reverse
-                    int to = getUncompactedIndex(i);
-                    int temp = diskMap[i];
-                    int utemp = uncompactedDiskMap[to];
+                    int freeSpaceIndex = getDiskIndex(j);
+                    int fileBlockIndex = getDiskIndex(i);
+                    int fileBlockSize = diskMap[i];
+                    int fileID = disk[fileBlockIndex];
 
-                    for (int k = from; k < from + temp; k++)
-                        uncompactedDiskMap[k] = utemp;
-                    for (int k = to; k < to + temp; k++)
-                        uncompactedDiskMap[k] = -1;
+                    for(int k = freeSpaceIndex; k < freeSpaceIndex + fileBlockSize; k++)
+                        disk[k] = fileID;
+                    for(int k = fileBlockIndex; k < fileBlockIndex + fileBlockSize; k++)
+                        disk[k] = -1;
 
-                    //Do not touch. It works as intended probably
-                    if(i+1 < diskMap.length)
+                    if(i + 1 < diskMap.length)
                         diskMap[i + 1] = diskMap[i + 1] + diskMap[i] + diskMap[i - 1];
                     for(int k = i; k > j + 1; k--)
                         diskMap[k] = diskMap[k - 2];
-                    diskMap[j + 2] = diskMap[j] - temp;
-                    diskMap[j + 1] = temp;
+                    diskMap[j + 2] = diskMap[j] - fileBlockSize;
+                    diskMap[j + 1] = fileBlockSize;
                     diskMap[j] = 0;
 
                     break;
                 }
 
-        for(int i = 0; i < uncompactedDiskMap.length; i++)
-            if(uncompactedDiskMap[i] != -1)
-                result += (long) uncompactedDiskMap[i] * i;
+        for(int i = 0; i < disk.length; i++)
+            if(disk[i] != -1)
+                result += (long) disk[i] * i;
 
         return result;
     }
@@ -113,14 +80,34 @@ public class day_09_2024
     static void parse(Scanner input)
     {
         diskMap = Arrays.stream(input.nextLine().split("")).mapToInt(Integer::parseInt).toArray();
+
+        int diskSize = 0;
+        for(int num: diskMap)
+            diskSize+=num;
+        disk = new int[diskSize];
+        int fileID = 0;
+        int fileBlockIndex = 0;
+        for(int i = 0; i < diskMap.length; i++)
+            if(i%2 == 0)
+            {
+                for(int j = 0; j < diskMap[i]; j++)
+                    disk[fileBlockIndex + j] = fileID;
+                fileBlockIndex += diskMap[i];
+                fileID++;
+            }
+            else
+            {
+                for(int j = 0; j < diskMap[i]; j++)
+                    disk[fileBlockIndex + j] = -1;
+                fileBlockIndex += diskMap[i];
+            }
     }
 
-    static int getUncompactedIndex(int compactedIndex)
+    static int getDiskIndex(int compactedIndex)
     {
-        int uncompactedIndex = 0;
+        int diskIndex = 0;
         for(int i = 0; i < compactedIndex; i++)
-            uncompactedIndex+=diskMap[i];
-        return uncompactedIndex;
+            diskIndex += diskMap[i];
+        return diskIndex;
     }
-
 }
