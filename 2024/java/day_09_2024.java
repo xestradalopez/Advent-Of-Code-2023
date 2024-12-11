@@ -12,7 +12,7 @@ public class day_09_2024
     {
         double start = System.nanoTime();
 
-        Scanner input = new Scanner(new File("2024/example/09.txt"));
+        Scanner input = new Scanner(new File("2024/input/09.txt"));
         parse(input);
 
         long partOne = partOne();
@@ -59,7 +59,7 @@ public class day_09_2024
                     for(int k = fileBlockIndex; k < fileBlockIndex + fileBlockSize; k++)
                         disk[k] = -1;
 
-                    if(i + 1 < diskMap.length)
+                    if(i != diskMap.length - 1)
                         diskMap[i + 1] = diskMap[i + 1] + diskMap[i] + diskMap[i - 1];
                     for(int k = i; k > j + 1; k--)
                         diskMap[k] = diskMap[k - 2];
