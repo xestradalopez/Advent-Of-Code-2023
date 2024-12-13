@@ -31,12 +31,7 @@ public class day_13_2024
 
         for(int[][] x : clawMachinesInfo)
             if((x[1][1] * x[2][0] - x[2][1] * x[1][0]) % (x[1][1] * x[0][0] - x[0][1] * x[1][0]) == 0)
-            {
-                int aButtonPresses = (x[1][1] * x[2][0] - x[2][1] * x[1][0]) / (x[1][1] * x[0][0] - x[0][1] * x[1][0]);
-                int bButtonPresses = (x[2][0] - aButtonPresses * x[0][0]) / x[1][0];
-
-                result += 3 * aButtonPresses + bButtonPresses;
-            }
+                result += 3 * ((x[1][1] * x[2][0] - x[2][1] * x[1][0]) / (x[1][1] * x[0][0] - x[0][1] * x[1][0])) + ((x[2][0] - ((x[1][1] * x[2][0] - x[2][1] * x[1][0]) / (x[1][1] * x[0][0] - x[0][1] * x[1][0])) * x[0][0]) / x[1][0]);
 
         return result;
     }
@@ -47,12 +42,7 @@ public class day_13_2024
 
         for(int[][] x : clawMachinesInfo)
             if((x[1][1] * (x[2][0] + 10000000000000L) - (x[2][1] + 10000000000000L) * x[1][0]) % ((long) x[1][1] * x[0][0] - (long) x[0][1] * x[1][0]) == 0)
-            {
-                long aButtonPresses = (x[1][1] * (x[2][0] + 10000000000000L) - (x[2][1] + 10000000000000L) * x[1][0]) / ((long) x[1][1] * x[0][0] - (long) x[0][1] * x[1][0]);
-                long bButtonPresses = ((x[2][0] + 10000000000000L) - aButtonPresses * x[0][0]) / x[1][0];
-
-                result += 3 * aButtonPresses + bButtonPresses;
-            }
+                result += 3 * ((x[1][1] * (x[2][0] + 10000000000000L) - (x[2][1] + 10000000000000L) * x[1][0]) / ((long) x[1][1] * x[0][0] - (long) x[0][1] * x[1][0])) + (((x[2][0] + 10000000000000L) - ((x[1][1] * (x[2][0] + 10000000000000L) - (x[2][1] + 10000000000000L) * x[1][0]) / ((long) x[1][1] * x[0][0] - (long) x[0][1] * x[1][0])) * x[0][0]) / x[1][0]);
 
         return result;
     }
