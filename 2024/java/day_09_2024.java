@@ -47,25 +47,27 @@ public class day_09_2024
 
         for(int i = diskMap.length - 1; i >= 0; i-=2)
             for(int j = 1; j < i; j+=2)
-                if(diskMap[j] >= diskMap[i])
-                {
+                if (diskMap[j] >= diskMap[i]) {
                     int freeSpaceIndex = getDiskIndex(j);
                     int fileBlockIndex = getDiskIndex(i);
                     int fileBlockSize = diskMap[i];
                     int fileID = disk[fileBlockIndex];
 
-                    for(int k = freeSpaceIndex; k < freeSpaceIndex + fileBlockSize; k++)
+                    for (int k = freeSpaceIndex; k < freeSpaceIndex + fileBlockSize; k++)
                         disk[k] = fileID;
-                    for(int k = fileBlockIndex; k < fileBlockIndex + fileBlockSize; k++)
+                    for (int k = fileBlockIndex; k < fileBlockIndex + fileBlockSize; k++)
                         disk[k] = -1;
 
-                    if(i != diskMap.length - 1)
+                    if (i != diskMap.length - 1)
                         diskMap[i + 1] = diskMap[i + 1] + diskMap[i] + diskMap[i - 1];
-                    for(int k = i; k > j + 1; k--)
+                    for (int k = i; k > j + 1; k--)
                         diskMap[k] = diskMap[k - 2];
-                    diskMap[j + 2] = diskMap[j] - fileBlockSize;
+                    if(j != diskMap.length - 2)
+                        diskMap[j + 2] = diskMap[j] - fileBlockSize;
                     diskMap[j + 1] = fileBlockSize;
                     diskMap[j] = 0;
+
+                    i+=2;
 
                     break;
                 }
