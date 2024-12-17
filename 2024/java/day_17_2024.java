@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class day_17_2024
 {
-    static int[] registers;
+    static long[] registers;
     static int[] instructions;
 
     public static void main(String[] args) throws FileNotFoundException
@@ -17,7 +17,7 @@ public class day_17_2024
         double start = System.nanoTime();
 
         String partOne = partOne();
-        int partTwo = partTwo();
+        long partTwo = partTwo();
 
         System.out.println("Part One: " + partOne);
         System.out.println("Part Two: " + partTwo);
@@ -32,7 +32,7 @@ public class day_17_2024
 
         for(int i = 0; i < instructions.length; i+=2)
         {
-            int comboOperand = instructions[i + 1] <= 3 ? instructions[i + 1] : instructions[i + 1] == 4 ? registers[0] : instructions[i + 1] == 5 ? registers[1] : registers[2];
+            long comboOperand = instructions[i + 1] <= 3 ? instructions[i + 1] : instructions[i + 1] == 4 ? registers[0] : instructions[i + 1] == 5 ? registers[1] : registers[2];
 
             switch(instructions[i])
             {
@@ -68,17 +68,18 @@ public class day_17_2024
         return result.toString();
     }
 
-    static int partTwo()
+    static long partTwo()
     {
-        int result = 0;
+        long result = 0;
 
         StringBuilder check;
         String check2 = toString(instructions);
 
-        for(int x = 0; true; x++)
+        long test = 233731868592124L;
+
+        for(long x = test; true; x++)1
         {
             System.out.println(x);
-
             registers[0] = x;
             registers[1] = 0;
             registers[2] = 0;
@@ -86,7 +87,7 @@ public class day_17_2024
             check = new StringBuilder();
 
             for (int i = 0; i < instructions.length; i += 2) {
-                int comboOperand = instructions[i + 1] <= 3 ? instructions[i + 1] : instructions[i + 1] == 4 ? registers[0] : instructions[i + 1] == 5 ? registers[1] : registers[2];
+                long comboOperand = instructions[i + 1] <= 3 ? instructions[i + 1] : instructions[i + 1] == 4 ? registers[0] : instructions[i + 1] == 5 ? registers[1] : registers[2];
 
                 switch (instructions[i]) {
                     case 0: //adv
@@ -118,6 +119,8 @@ public class day_17_2024
                 }
             }
 
+            System.out.println(check);
+
             if(check.toString().equals(check2))
             {
                 result = x;
@@ -130,11 +133,11 @@ public class day_17_2024
 
     static void parse(Scanner input)
     {
-        registers = new int[3];
+        registers = new long[3];
 
-        registers[0] = Integer.parseInt(input.nextLine().substring(12));
-        registers[1] = Integer.parseInt(input.nextLine().substring(12));
-        registers[2] = Integer.parseInt(input.nextLine().substring(12));
+        registers[0] = Long.parseLong(input.nextLine().substring(12));
+        registers[1] = Long.parseLong(input.nextLine().substring(12));
+        registers[2] = Long.parseLong(input.nextLine().substring(12));
 
         input.nextLine();
 
