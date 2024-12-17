@@ -26,15 +26,15 @@ public class day_01_2024
         System.out.println(duration + "ms");
     }
 
-    public static int partOne()
+    static int partOne()
     {
         int result = 0;
         for(int i = 0; i < leftList.length; i++)
-            result+= Math.abs(leftList[i] - rightList[i]);
+            result += Math.abs(leftList[i] - rightList[i]);
         return result;
     }
 
-    public static int partTwo()
+    static int partTwo()
     {
         int result = 0;
         for (Integer id : leftList)
@@ -42,7 +42,7 @@ public class day_01_2024
         return result;
     }
 
-    public static void parse(Scanner input)
+    static void parse(Scanner input)
     {
         ArrayList<Integer> a = new ArrayList<>();
         ArrayList<Integer> b = new ArrayList<>();
@@ -61,7 +61,7 @@ public class day_01_2024
         Arrays.sort(rightList);
     }
 
-    public static int getFrequency(int id)
+    static int getFrequency(int id)
     {
         int frequency = 0;
         for (Integer x : rightList)
