@@ -14,6 +14,28 @@ public class day_17_2024
         Scanner input = new Scanner(new File("2024/input/17.txt"));
         parse(input);
 
+        int
+        x
+        =
+        1
+        ;
+
+        if
+        (
+        x
+        ==
+        1
+        )
+        System
+        .
+        out
+        .
+        println
+        (
+        x
+        )
+        ;
+
         double start = System.nanoTime();
 
         String partOne = partOne();
@@ -75,9 +97,9 @@ public class day_17_2024
         StringBuilder check;
         String check2 = toString(instructions);
 
-        long test = 233731868592124L;
+        long test = 233732035384677L;
 
-        for(long x = test; true; x++)1
+        for(long x = test; true; x--)
         {
             System.out.println(x);
             registers[0] = x;
