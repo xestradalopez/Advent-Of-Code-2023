@@ -4,3 +4,29 @@
 1   3
 3   9
 3   3
+
+029A
+<A^A>^^AvvvA Mine
+<A^A>^^AvvvA Example
+
+<v<A>>^A<A>AvA<^AA>A<vAAA>^A Mine
+v<<A>>^A<A>AvA<^AA>A<vAAA>^A Example
+
+
+<v<A>>^A<vA<A>>^AAvAA<^A>A<v<A>>^AAvA^A<vA>^AA<A>A<v<A>A>^AAAvA<^A>A Mine
+<v<A>>^A<vA<A>>^AAvAA<^A>A<v<A>>^AAvA^A<vA>^AA<A>A<v<A>A>^AAAvA<^A>A Example
+
+179A
+^<<A^^A>>AvvvA Mine
+^<<A^^A>>AvvvA Example
+
+<Av<AA>>^A<AA>AvAA^A<vAAA>^A Mine
+<Av<AA>>^A<AA>AvAA^A<vAAA>^A Example
+
+
+<v<A>>^A<vA<A>>^AAvAA<^A>A<v<A>>^AAvA^A<vA>^AA<A>A<v<A>A>^AAAvA<^A>A Mine
+<v<A>>^A<vA<A>>^AAvAA<^A>A<v<A>>^AAvA^A<vA>^AA<A>A<v<A>A>^AAAvA<^A>A Example
+
+157020 too low
+
+182932 too high

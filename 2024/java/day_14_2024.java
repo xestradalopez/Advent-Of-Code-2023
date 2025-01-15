@@ -5,7 +5,6 @@ import java.util.*;
 public class day_14_2024
 {
     static Robot[] robots;
-    static final int ROOM_HEIGHT = 103;
 
     public static void main(String[] args) throws FileNotFoundException
     {
@@ -67,7 +66,7 @@ public class day_14_2024
             for(Robot robot: robots)
             {
                 robot.move();
-                int robotPositon = ROOM_HEIGHT * robot.posY + robot.posX;
+                int robotPositon = robot.ROOM_HEIGHT * robot.posY + robot.posX;
                 if(robotPositions.contains(robotPositon))
                     positionsAreUnique = false;
                 robotPositions.add(robotPositon);

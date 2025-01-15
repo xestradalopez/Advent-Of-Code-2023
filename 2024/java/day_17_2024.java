@@ -75,11 +75,11 @@ public class day_17_2024
         StringBuilder check;
         String check2 = toString(instructions);
 
-        long test = 233731868592124L;
+        long test = 233725958356588L;
 
-        for(long x = test; true; x++)1
+        for(long x = test; x < test + 1; x++)
         {
-            System.out.println(x);
+            //System.out.println(x);
             registers[0] = x;
             registers[1] = 0;
             registers[2] = 0;
