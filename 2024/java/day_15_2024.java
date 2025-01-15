@@ -13,7 +13,7 @@ public class day_15_2024
     {
         double start = System.nanoTime();
 
-        Scanner input = new Scanner(new File("2024/input/15.txt"));
+        Scanner input = new Scanner(new File("2024/example/15.txt"));
         parse(input);
 
         int partOne = partOne();
