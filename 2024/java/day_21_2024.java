@@ -170,27 +170,27 @@ public class day_21_2024
         long temp;
         for(char key: x)
         {
-            if(penis.containsKey(key) && penis.get(key).containsKey(prevKey) && penis.get(key).get(prevKey).containsKey(depth))
-                temp = penis.get(key).get(prevKey).get(depth);
+            if(cache.containsKey(key) && cache.get(key).containsKey(prevKey) && cache.get(key).get(prevKey).containsKey(depth))
+                temp = cache.get(key).get(prevKey).get(depth);
             else
             {
                 temp = charSequenceLength(getDirectionalKeySequence(new char[]{key}, dirPad.get(prevKey)), depth - 1);
 
-                if(penis.containsKey(key) && penis.get(key).containsKey(prevKey))
-                    penis.get(key).get(prevKey).put(depth, temp);
+                if(cache.containsKey(key) && cache.get(key).containsKey(prevKey))
+                    cache.get(key).get(prevKey).put(depth, temp);
                 else
                 {
                     HashMap<Integer, Long> penis3 = new HashMap<>();
                     penis3.put(depth, temp);
 
-                    if(penis.containsKey(key))
-                        penis.get(key).put(prevKey, penis3);
+                    if(cache.containsKey(key))
+                        cache.get(key).put(prevKey, penis3);
                     else
                     {
                         HashMap<Character, HashMap<Integer, Long>> penis2 = new HashMap<>();
                         penis2.put(prevKey, penis3);
 
-                        penis.put(key, penis2);
+                        cache.put(key, penis2);
                     }
                 }
             }
