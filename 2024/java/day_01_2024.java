@@ -1,70 +1,65 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.LinkedList;
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class day_01_2024
 {
-    static int[] leftList;
-    static int[] rightList;
+    static int[][] lists;
 
     public static void main(String[] args) throws FileNotFoundException
     {
-        double start = System.nanoTime();
-
         Scanner input = new Scanner(new File("2024/input/01.txt"));
         parse(input);
 
-        int partOne = partOne();
-        int partTwo = partTwo();
-
-        System.out.println("Part One: " + partOne);
-        System.out.println("Part Two: " + partTwo);
-
-        double duration = (System.nanoTime() - start) / 1000000;
-        System.out.println(duration + "ms");
+        double start;
+        start = System.nanoTime();
+        System.out.println("Part One: " + partOne() + "\t" + ((System.nanoTime() - start) / 1000000) + "ms");
+        start = System.nanoTime();
+        System.out.println("Part Two: " + partTwo() + "\t" + ((System.nanoTime() - start) / 1000000) + "ms");
     }
 
     static int partOne()
     {
         int result = 0;
-        for(int i = 0; i < leftList.length; i++)
-            result += Math.abs(leftList[i] - rightList[i]);
+        for(int i = 0; i < lists[0].length; i++)
+            result += Math.abs(lists[0][i] - lists[1][i]);
         return result;
     }
 
     static int partTwo()
     {
         int result = 0;
-        for (Integer id : leftList)
+        for (Integer id : lists[0])
             result += id * getFrequency(id);
         return result;
     }
 
     static void parse(Scanner input)
     {
-        ArrayList<Integer> a = new ArrayList<>();
-        ArrayList<Integer> b = new ArrayList<>();
+        LinkedList<Integer>[] a = new LinkedList[2];
+        a[0] = new LinkedList<>();
+        a[1] = new LinkedList<>();
 
         while(input.hasNextLine())
         {
             int[] pair = Arrays.stream(input.nextLine().split(" {3}")).mapToInt(Integer::parseInt).toArray();
-            a.add(pair[0]);
-            b.add(pair[1]);
+
+            a[0].add(pair[0]);
+            a[1].add(pair[1]);
         }
 
-        leftList = a.stream().mapToInt(Integer::intValue).toArray();
-        rightList = b.stream().mapToInt(Integer::intValue).toArray();
+        lists = Helper.toArray(a);
 
-        Arrays.sort(leftList);
-        Arrays.sort(rightList);
+        Arrays.sort(lists[0]);
+        Arrays.sort(lists[1]);
     }
 
     static int getFrequency(int id)
     {
         int frequency = 0;
-        for (Integer x : rightList)
+        for (Integer x : lists[1])
             if (x == id)
                 frequency++;
         return frequency;

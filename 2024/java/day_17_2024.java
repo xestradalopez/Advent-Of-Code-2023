@@ -14,16 +14,11 @@ public class day_17_2024
         Scanner input = new Scanner(new File("2024/input/17.txt"));
         parse(input);
 
-        double start = System.nanoTime();
-
-        String partOne = partOne();
-        long partTwo = partTwo();
-
-        System.out.println("Part One: " + partOne);
-        System.out.println("Part Two: " + partTwo);
-
-        double duration = (System.nanoTime() - start) / 1000000;
-        System.out.println(duration + "ms");
+        double start;
+        start = System.nanoTime();
+        System.out.println("Part One: " + partOne() + " <" + ((System.nanoTime() - start) / 1000000) + "ms>");
+        start = System.nanoTime();
+        System.out.println("Part Two: " + partTwo() + " <" + ((System.nanoTime() - start) / 1000000) + "ms>");
     }
 
     static String partOne()

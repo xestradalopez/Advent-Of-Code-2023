@@ -6,58 +6,38 @@ import java.util.Scanner;
 public class day_21_2024
 {
     static char[][] doorCodes;
-    static HashMap<Character, int[]> numericKeypad = new HashMap<>();
-    static HashMap<Character, int[]> directionalKeypad = new HashMap<>();
+    static HashMap<Character, Point> numPad = new HashMap<>();
+    static HashMap<Character, Point> dirPad = new HashMap<>();
+    static HashMap<Character, HashMap<Character, HashMap<Integer, Long>>> penis = new HashMap<>();
 
     public static void main(String[] args) throws FileNotFoundException
     {
-        double start = System.nanoTime();
-
         Scanner input = new Scanner(new File("2024/example/21.txt"));
         parse(input);
 
-        System.out.println(getDirectionalKeySequence("<Av<A>>^A".toCharArray()));
-        System.out.println(getDirectionalKeySequence("v<<A>^A>A".toCharArray()));
-
-        int partOne = partOne();
-        int partTwo = partTwo();
-
-        System.out.println("Part One: " + partOne);
-        System.out.println("Part Two: " + partTwo);
-
-        double duration = (System.nanoTime() - start) / 1000000;
-        System.out.println(duration + "ms");
+        double start;
+        start = System.nanoTime();
+        System.out.println("Part One: " + partOne() + " <" + ((System.nanoTime() - start) / 1000000) + "ms>");
+        start = System.nanoTime();
+        System.out.println("Part Two: " + partTwo() + " <" + ((System.nanoTime() - start) / 1000000) + "ms>");
     }
 
     static int partOne()
     {
         int result = 0;
 
-        for(char[] doorCode: doorCodes)
-        {
-            char[] a = getNumericKeySequence(doorCode);
-
-            char[] b = getDirectionalKeySequence(a);
-
-            char[] c = getDirectionalKeySequence(b);
-
-            System.out.println(c.length + " * " + Integer.parseInt(new String(doorCode).substring(0, 3)));
-            System.out.println(doorCode);
-            System.out.println(a);
-            System.out.println(b);
-            System.out.println(c);
-
-            result += c.length * Integer.parseInt(new String(doorCode).substring(0, 3));
-        }
-
-
+        for(char[] code: doorCodes)
+            result += charSequenceLength(getNumericKeySequence(code), 3) * Integer.parseInt(new String(code).substring(0, 3));
 
         return result;
     }
 
-    static int partTwo()
+    static long partTwo()
     {
-        int result = 0;
+        long result = 0;
+
+        for(char[] code: doorCodes)
+            result += charSequenceLength(getNumericKeySequence(code), 26) * Integer.parseInt(new String(code).substring(0, 3));
 
         return result;
     }
@@ -69,55 +49,64 @@ public class day_21_2024
         for(int i = 0; input.hasNextLine(); i++)
             doorCodes[i] = input.nextLine().toCharArray();
 
-        numericKeypad.put('A', new int[]{2, 0});
-        numericKeypad.put('0', new int[]{1, 0});
-        numericKeypad.put('1', new int[]{0, 1});
-        numericKeypad.put('2', new int[]{1, 1});
-        numericKeypad.put('3', new int[]{2, 1});
-        numericKeypad.put('4', new int[]{0, 2});
-        numericKeypad.put('5', new int[]{1, 2});
-        numericKeypad.put('6', new int[]{2, 2});
-        numericKeypad.put('7', new int[]{0, 3});
-        numericKeypad.put('8', new int[]{1, 3});
-        numericKeypad.put('9', new int[]{2, 3});
+        numPad.put('A', new Point(2, 0));
+        numPad.put('0', new Point(1, 0));
+        numPad.put('1', new Point(0, 1));
+        numPad.put('2', new Point(1, 1));
+        numPad.put('3', new Point(2, 1));
+        numPad.put('4', new Point(0, 2));
+        numPad.put('5', new Point(1, 2));
+        numPad.put('6', new Point(2, 2));
+        numPad.put('7', new Point(0, 3));
+        numPad.put('8', new Point(1, 3));
+        numPad.put('9', new Point(2, 3));
 
-        directionalKeypad.put('A', new int[]{2, 1});
-        directionalKeypad.put('<', new int[]{0, 0});
-        directionalKeypad.put('v', new int[]{1, 0});
-        directionalKeypad.put('>', new int[]{2, 0});
-        directionalKeypad.put('^', new int[]{1, 1});
+        dirPad.put('A', new Point(2, 1));
+        dirPad.put('<', new Point(0, 0));
+        dirPad.put('v', new Point(1, 0));
+        dirPad.put('>', new Point(2, 0));
+        dirPad.put('^', new Point(1, 1));
     }
 
-    static char[] getDirectionalKeySequence(char[] keySequence)
+    static char[] getDirectionalKeySequence(char[] keySequence, Point start)
     {
         StringBuilder directionalKeySequence = new StringBuilder();
 
-        int[] pos = new int[]{2, 1};
+        Point from;
+        Point to = start;
 
         for(char key : keySequence)
         {
-            int x = directionalKeypad.get(key)[0] - pos[0];
-            int y = directionalKeypad.get(key)[1] - pos[1];
+            from = to;
+            to = dirPad.get(key);
 
-            pos = directionalKeypad.get(key);
+            int x = to.x - from.x;
+            int y = to.y - from.y;
 
-            if(pos[0] == 0 && y == -1)
+            if(x == 2)
             {
-                directionalKeySequence.append("v");
-                directionalKeySequence.append("<".repeat(x * -1));
-                directionalKeySequence.append('A');
+                directionalKeySequence.repeat(">", x);
+                directionalKeySequence.repeat("^", y);
+                directionalKeySequence.append("A");
+                continue;
+            }
+
+            if(key == '<')
+            {
+                directionalKeySequence.repeat("v", -y);
+                directionalKeySequence.repeat("<", -x);
+                directionalKeySequence.append("A");
                 continue;
             }
 
             if(x < 0)
-                directionalKeySequence.append("<".repeat(x * -1));
+                directionalKeySequence.append("<".repeat(-x));
+            if(y < 0)
+                directionalKeySequence.append("v");
             if(y > 0)
                 directionalKeySequence.append("^");
             if(x > 0)
                 directionalKeySequence.append(">".repeat(x));
-            if(y < 0)
-                directionalKeySequence.append("v");
-
 
             directionalKeySequence.append('A');
         }
@@ -129,35 +118,87 @@ public class day_21_2024
     {
         StringBuilder numericKeySequence = new StringBuilder();
 
-        int[] pos = new int[]{2, 0};
+        Point from;
+        Point to = new Point(2, 0);
 
         for(char key : keySequence)
         {
-            int x = numericKeypad.get(key)[0] - pos[0];
-            int y = numericKeypad.get(key)[1] - pos[1];
+            from = to;
+            to = numPad.get(key);
 
-            pos = numericKeypad.get(key);
+            int x = to.x - from.x;
+            int y = to.y - from.y;
 
-            if(pos[0] == 0 && pos[1] == y)
+            if(from.y == 0 && to.x == 0)
             {
                 numericKeySequence.append("^".repeat(y));
-                numericKeySequence.append("<".repeat((x * - 1)));
+                numericKeySequence.append("<".repeat((-x)));
+                numericKeySequence.append("A");
+                continue;
+            }
+
+            if(from.x == 0 && to.y == 0)
+            {
+                numericKeySequence.append(">".repeat(-y));
+                numericKeySequence.append("v".repeat(x));
                 numericKeySequence.append("A");
                 continue;
             }
 
             if(x < 0)
-                numericKeySequence.append("<".repeat(x * -1));
-            if(x > 0)
-                numericKeySequence.append(">".repeat(x));
+                numericKeySequence.append("<".repeat(-x));
             if(y < 0)
-                numericKeySequence.append("v".repeat(y * -1));
+                numericKeySequence.append("v".repeat(-y));
             if(y > 0)
                 numericKeySequence.append("^".repeat(y));
+            if(x > 0)
+                numericKeySequence.append(">".repeat(x));
 
             numericKeySequence.append('A');
         }
 
         return numericKeySequence.toString().toCharArray();
+    }
+
+    static long charSequenceLength(char[] x, int depth)
+    {
+        if(depth == 0) return 1;
+
+        long result = 0;
+
+        char prevKey = 'A';
+        long temp;
+        for(char key: x)
+        {
+            if(penis.containsKey(key) && penis.get(key).containsKey(prevKey) && penis.get(key).get(prevKey).containsKey(depth))
+                temp = penis.get(key).get(prevKey).get(depth);
+            else
+            {
+                temp = charSequenceLength(getDirectionalKeySequence(new char[]{key}, dirPad.get(prevKey)), depth - 1);
+
+                if(penis.containsKey(key) && penis.get(key).containsKey(prevKey))
+                    penis.get(key).get(prevKey).put(depth, temp);
+                else
+                {
+                    HashMap<Integer, Long> penis3 = new HashMap<>();
+                    penis3.put(depth, temp);
+
+                    if(penis.containsKey(key))
+                        penis.get(key).put(prevKey, penis3);
+                    else
+                    {
+                        HashMap<Character, HashMap<Integer, Long>> penis2 = new HashMap<>();
+                        penis2.put(prevKey, penis3);
+
+                        penis.put(key, penis2);
+                    }
+                }
+            }
+
+            result += temp;
+            prevKey = key;
+        }
+
+        return result;
     }
 }
