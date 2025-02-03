@@ -8,7 +8,7 @@ public class day_21_2024
     static char[][] doorCodes;
     static HashMap<Character, Point> numPad = new HashMap<>();
     static HashMap<Character, Point> dirPad = new HashMap<>();
-    static HashMap<Character, HashMap<Character, HashMap<Integer, Long>>> penis = new HashMap<>();
+    static HashMap<Character, HashMap<Character, HashMap<Integer, Long>>> cache = new HashMap<>();
 
     public static void main(String[] args) throws FileNotFoundException
     {
