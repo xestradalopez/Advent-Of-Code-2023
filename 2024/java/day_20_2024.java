@@ -1,53 +1,60 @@
+import Helpers.Grid;
+import Helpers.Point;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
+
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class day_20_2024
 {
-    static char[][] racetrackMap;
-    static int[] startPosition;
+    static Grid<Character> racetrackMap;
+    static Point startPosition;
 
     public static void main(String[] args) throws FileNotFoundException
     {
-        double start = System.nanoTime();
-
-        Scanner input = new Scanner(new File("2024/example/20.txt"));
+        Scanner input = new Scanner(new File("2024/input/20.txt"));
         parse(input);
 
-        System.out.println("Part One: " + partOne());
-        System.out.println("Part Two: " + partTwo());
-
-        double duration = (System.nanoTime() - start) / 1000000;
-        System.out.println(duration + "ms");
+        double start;
+        start = System.nanoTime();
+        System.out.println("Part One: " + partOne() + " <" + ((System.nanoTime() - start) / 1000000) + "ms>");
+        start = System.nanoTime();
+        System.out.println("Part Two: " + partTwo() + " <" + ((System.nanoTime() - start) / 1000000) + "ms>");
     }
 
     static int partOne()
     {
         int result = 0;
 
-        int baseSpeed = 0;
+        HashMap<Point, Integer> path = new HashMap<>();
+        Grid<Character> map = racetrackMap.clone();
+        Point pos = startPosition.clone();
 
-        char[][] map = copy2DArray(racetrackMap);
+        int fastestTime = 0;
 
-        ArrayList<int[]> moves = new ArrayList<>();
-        moves.add(startPosition);
-
-        while(!moves.isEmpty())
+        while(!map.get(pos).equals('E'))
         {
-            racetrackMap[moves.getFirst()[0]][moves.getFirst()[1]] = '#';
-
-            if(racetrackMap[moves.getFirst()[0]][moves.getFirst()[1] + 1] != '#')
-                moves.add(new int[]{moves.getFirst()[0],moves.getFirst()[1] + 1});
-            if(racetrackMap[moves.getFirst()[0] - 1][moves.getFirst()[1]] != '#')
-                moves.add(new int[]{moves.getFirst()[0] - 1,moves.getFirst()[1]});
-            if(racetrackMap[moves.getFirst()[0]][moves.getFirst()[1] - 1] != '#')
-                moves.add(new int[]{moves.getFirst()[0],moves.getFirst()[1] - 1});
-            if(racetrackMap[moves.getFirst()[0] + 1][moves.getFirst()[1]] != '#')
-                moves.add(new int[]{moves.getFirst()[0] + 1,moves.getFirst()[1]});
+            path.put(pos, fastestTime);
+            map.set(pos, '#');
+            pos = map.getNeighbors(pos, '#')[0];
+            fastestTime++;
         }
+        path.put(pos, fastestTime);
 
+        map = racetrackMap.clone();
+        for(Point p : path.keySet())
+        {
+           map.set(p, '#');
+
+            for(Point q : map.getNeighbors(p, '.'))
+                for(Point b : map.getNeighbors(q, '#'))
+                    if(path.containsKey(b) && path.get(b) - path.get(p) - 2 >= 100) result++;
+
+            map.set(p, '.');
+        }
 
         return result;
     }
@@ -61,24 +68,16 @@ public class day_20_2024
 
     static void parse(Scanner input)
     {
-        ArrayList<char[]> a = new ArrayList<>();
+        LinkedList<Character[]> a = new LinkedList<>();
+
         while(input.hasNextLine())
         {
             String currentLine = input.nextLine();
             if(currentLine.contains("S"))
-                startPosition = new int[]{a.size(), currentLine.indexOf('S'), 0};
-            a.add(currentLine.toCharArray());
+                startPosition = new Point(a.size(), currentLine.indexOf('S'));
+            a.add(currentLine.chars().mapToObj(c -> (char)c).toArray(Character[]::new));
         }
-        racetrackMap = a.toArray(new char[0][0]);
-    }
 
-    public static char[][] copy2DArray(char[][] arr1)
-    {
-        char[][] arr2 = new char[arr1.length][];
-
-        for (int i = 0; i < arr1.length; i++)
-            arr2[i] = Arrays.copyOf(arr1[i], arr1[i].length);
-
-        return arr2;
+        racetrackMap = new Grid<>(a);
     }
 }

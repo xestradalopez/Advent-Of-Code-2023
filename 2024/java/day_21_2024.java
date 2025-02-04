@@ -1,7 +1,10 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+
 import java.util.HashMap;
 import java.util.Scanner;
+
+import Helpers.Point;
 
 public class day_21_2024
 {
@@ -12,7 +15,7 @@ public class day_21_2024
 
     public static void main(String[] args) throws FileNotFoundException
     {
-        Scanner input = new Scanner(new File("2024/example/21.txt"));
+        Scanner input = new Scanner(new File("2024/input/21.txt"));
         parse(input);
 
         double start;
@@ -49,23 +52,13 @@ public class day_21_2024
         for(int i = 0; input.hasNextLine(); i++)
             doorCodes[i] = input.nextLine().toCharArray();
 
-        numPad.put('A', new Point(2, 0));
-        numPad.put('0', new Point(1, 0));
-        numPad.put('1', new Point(0, 1));
-        numPad.put('2', new Point(1, 1));
-        numPad.put('3', new Point(2, 1));
-        numPad.put('4', new Point(0, 2));
-        numPad.put('5', new Point(1, 2));
-        numPad.put('6', new Point(2, 2));
-        numPad.put('7', new Point(0, 3));
-        numPad.put('8', new Point(1, 3));
-        numPad.put('9', new Point(2, 3));
+        numPad.put('7', new Point(0, 3)); numPad.put('8', new Point(1, 3)); numPad.put('9', new Point(2, 3));
+        numPad.put('4', new Point(0, 2)); numPad.put('5', new Point(1, 2)); numPad.put('6', new Point(2, 2));
+        numPad.put('1', new Point(0, 1)); numPad.put('2', new Point(1, 1)); numPad.put('3', new Point(2, 1));
+                                          numPad.put('0', new Point(1, 0)); numPad.put('A', new Point(2, 0));
 
-        dirPad.put('A', new Point(2, 1));
-        dirPad.put('<', new Point(0, 0));
-        dirPad.put('v', new Point(1, 0));
-        dirPad.put('>', new Point(2, 0));
-        dirPad.put('^', new Point(1, 1));
+                                          dirPad.put('^', new Point(1, 1)); dirPad.put('A', new Point(2, 1));
+        dirPad.put('<', new Point(0, 0)); dirPad.put('v', new Point(1, 0)); dirPad.put('>', new Point(2, 0));
     }
 
     static char[] getDirectionalKeySequence(char[] keySequence, Point start)
@@ -80,10 +73,10 @@ public class day_21_2024
             from = to;
             to = dirPad.get(key);
 
-            int x = to.x - from.x;
-            int y = to.y - from.y;
+            int x = to.i - from.i;
+            int y = to.j - from.j;
 
-            if(x == 2)
+            if(from.i == 0 && to.j == 1)
             {
                 directionalKeySequence.repeat(">", x);
                 directionalKeySequence.repeat("^", y);
@@ -91,7 +84,7 @@ public class day_21_2024
                 continue;
             }
 
-            if(key == '<')
+            if((from.j == 1 && to.i == 0))
             {
                 directionalKeySequence.repeat("v", -y);
                 directionalKeySequence.repeat("<", -x);
@@ -126,10 +119,10 @@ public class day_21_2024
             from = to;
             to = numPad.get(key);
 
-            int x = to.x - from.x;
-            int y = to.y - from.y;
+            int x = to.i - from.i;
+            int y = to.j - from.j;
 
-            if(from.y == 0 && to.x == 0)
+            if(from.j == 0 && to.i == 0)
             {
                 numericKeySequence.append("^".repeat(y));
                 numericKeySequence.append("<".repeat((-x)));
@@ -137,7 +130,7 @@ public class day_21_2024
                 continue;
             }
 
-            if(from.x == 0 && to.y == 0)
+            if(from.i == 0 && to.j == 0)
             {
                 numericKeySequence.append(">".repeat(-y));
                 numericKeySequence.append("v".repeat(x));
@@ -198,7 +191,6 @@ public class day_21_2024
             result += temp;
             prevKey = key;
         }
-
         return result;
     }
 }

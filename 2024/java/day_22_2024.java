@@ -10,19 +10,14 @@ public class day_22_2024
 
     public static void main(String[] args) throws FileNotFoundException
     {
-        double start = System.nanoTime();
-
-        Scanner input = new Scanner(new File("2024/input/22.txt"));
+        Scanner input = new Scanner(new File("2024/example/22.txt"));
         parse(input);
 
-        long partOne = partOne();
-        int partTwo = partTwo();
-
-        System.out.println("Part One: " + partOne);
-        System.out.println("Part Two: " + partTwo);
-
-        double duration = (System.nanoTime() - start) / 1000000;
-        System.out.println(duration + "ms");
+        double start;
+        start = System.nanoTime();
+        System.out.println("Part One: " + partOne() + " <" + ((System.nanoTime() - start) / 1000000) + "ms>");
+        start = System.nanoTime();
+        System.out.println("Part Two: " + partTwo() + " <" + ((System.nanoTime() - start) / 1000000) + "ms>");
     }
 
     static long partOne()
@@ -55,7 +50,7 @@ public class day_22_2024
         for(int i = 0; i < 2000; i++)
         {
             secretNumber = (secretNumber ^ (secretNumber * 64)) % 16777216;
-            secretNumber = (secretNumber ^ (secretNumber / 32)) % 16777216;
+            secretNumber = (secretNumber ^ (secretNumber / 32));
             secretNumber = (secretNumber ^ (secretNumber * 2048)) % 16777216;
         }
 
