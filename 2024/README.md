@@ -3,7 +3,7 @@
 # 🎄 Advent of Code 2024
 
 <!--- advent_readme_stars table --->
-## 2023 Results
+## 2024 Results
 
 |                      Day                       | Part 1 | Part 2 |
 |:----------------------------------------------:|:------:|:------:|
